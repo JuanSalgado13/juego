@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de 10 Preguntas</title>
+</head>
+<body>
+    <h1>Juego de 10 Preguntas</h1>
+    <div id="pregunta"></div>
+    <div id="respuestas"></div>
+    <div id="puntaje"></div>
+    <script>
+        const preguntas = [
+            { pregunta: "¿Cuál es la capital de Francia?", respuestas: ["Paris", "Madrid", "Roma", "Londres"], respuestaCorrecta: 0 },
+            { pregunta: "¿Cuánto es 5 + 3?", respuestas: ["7", "8", "9", "10"], respuestaCorrecta: 1 },
+            // Agregar más preguntas aquí
+        ];
+
+        let indicePregunta = 0;
+        let puntaje = 0;
+
+        function mostrarPregunta() {
+            const preguntaActual = preguntas[indicePregunta];
+            document.getElementById("pregunta").textContent = preguntaActual.pregunta;
+            const respuestasDiv = document.getElementById("respuestas");
+            respuestasDiv.innerHTML = "";
+
+            preguntaActual.respuestas.forEach((respuesta, index) => {
+                const button = document.createElement("button");
+                button.textContent = respuesta;
+                button.onclick = () => verificarRespuesta(index);
+                respuestasDiv.appendChild(button);
+            });
+        }
+
+        function verificarRespuesta(index) {
+            if (index === preguntas[indicePregunta].respuestaCorrecta) {
+                puntaje++;
+            }
+            indicePregunta++;
+            if (indicePregunta < preguntas.length) {
+                mostrarPregunta();
+            } else {
+                mostrarPuntaje();
+            }
+        }
+
+        function mostrarPuntaje() {
+            document.getElementById("puntaje").textContent = `Puntaje final: ${puntaje} de ${preguntas.length}`;
+        }
+
+        mostrarPregunta();
+    </script>
+</body>
+</html>
